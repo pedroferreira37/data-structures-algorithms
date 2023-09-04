@@ -34,6 +34,7 @@ Node *ll_rotation(Node *p) {
 
   pl->right = p;
   p->left = plr;
+
   p->height = node_height(p);
   pl->height = node_height(pl);
 
@@ -65,9 +66,42 @@ Node *lr_rotation(Node *p) {
   return plr;
 }
 
-Node *rr_rotation(Node *p) { return NULL; }
+Node *rr_rotation(Node *p) {
+  Node *pl = p->right;
+  Node *plr = pl->left;
 
-Node *rl_rotation(Node *p) { return NULL; }
+  pl->left = p;
+  p->right = plr;
+
+  p->height = node_height(p);
+  pl->height = node_height(pl);
+
+  if (root == p) {
+    root = pl;
+  }
+
+  return pl;
+}
+
+Node *rl_rotation(Node *p) {
+  Node *pl = p->right;
+  Node *plr = pl->left;
+
+  pl->left = plr->right;
+  p->right = plr->left;
+
+  plr->left = p;
+  plr->right = pl;
+
+  pl->height = node_height(pl);
+  p->height = node_height(p);
+  plr->height = node_height(plr);
+
+  if (root == p)
+    root = plr;
+
+  return plr;
+}
 
 Node *RInsert(Node *p, int key) {
   Node *t;
@@ -88,11 +122,11 @@ Node *RInsert(Node *p, int key) {
   p->height = node_height(p);
 
   if (is_balanced(p) == 2 && is_balanced(p->left) == 1) {
-    return ll_rotation(p);
+    // return ll_rotation(p);
   } else if (is_balanced(p) == 2 && is_balanced(p->left) == -1) {
-    return lr_rotation(p);
+    // return lr_rotation(p);
   } else if (is_balanced(p) == -2 && is_balanced(p->right) == -1) {
-    return rr_rotation(p);
+    // return rr_rotation(p);
   } else if (is_balanced(p) == -2 && is_balanced(p->right) == 1) {
     return rl_rotation(p);
   }
@@ -103,15 +137,15 @@ Node *RInsert(Node *p, int key) {
 void Preorder(Node *p) {
 
   if (p) {
-    printf("%d ", p->data);
     Preorder(p->left);
+    printf("%d ", p->data);
     Preorder(p->right);
   }
 }
 
 int main() {
-  root = RInsert(root, 50);
-  RInsert(root, 10);
+  root = RInsert(root, 10);
+  RInsert(root, 30);
 
   RInsert(root, 20);
 

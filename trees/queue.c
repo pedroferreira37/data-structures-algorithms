@@ -29,5 +29,6 @@ Node *dequeue(struct Queue *q) {
   return x;
 }
 
+
 int isEmpty(struct Queue q) { return q.front - 1 == q.rear - 1; }
 
