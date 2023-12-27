@@ -7,6 +7,11 @@ struct Node {
   struct Node *next;
 } *first = NULL, *second = NULL, *third = NULL;
 
+/*
+
+
+*/
+
 void create(int A[], int n) {
   int i;
   struct Node *t, *last;
@@ -82,8 +87,7 @@ void Insert(struct Node *p, int index, int x) {
   struct Node *t;
   int i;
 
-  if (index < 0 || index > count(p))
-    return;
+  if (index < 0 || index > count(p)) return;
   t = (struct Node *)malloc(sizeof(struct Node));
   t->data = x;
 
@@ -91,8 +95,7 @@ void Insert(struct Node *p, int index, int x) {
     t->next = first;
     first = t;
   } else {
-    for (i = 0; i < index - 1; i++)
-      p = p->next;
+    for (i = 0; i < index - 1; i++) p = p->next;
     t->next = p->next;
     p->next = t;
   }
@@ -101,8 +104,7 @@ void Insert(struct Node *p, int index, int x) {
 int RMax(struct Node *p) {
   int x = 0;
 
-  if (p == 0)
-    return INT32_MIN;
+  if (p == 0) return INT32_MIN;
   x = RMax(p->next);
   if (x > p->data)
     return x;
@@ -126,10 +128,8 @@ struct Node *LSearch(struct Node *p, int key) {
   return NULL;
 }
 struct Node *RSearch(struct Node *p, int key) {
-  if (p == NULL)
-    return NULL;
-  if (key == p->data)
-    return p;
+  if (p == NULL) return NULL;
+  if (key == p->data) return p;
   return RSearch(p->next, key);
 }
 
@@ -187,8 +187,7 @@ int isSorted(struct Node *p) {
   int x = -65536;
 
   while (p != NULL) {
-    if (p->data < x)
-      return 0;
+    if (p->data < x) return 0;
     x = p->data;
     p = p->next;
   }
@@ -305,23 +304,20 @@ int isLoop(struct Node *f) {
     return 0;
 }
 
-int Length(struct Node *p)
-{
- int len=0;
- do
- {
- len++;
- p=p->next;
+int Length(struct Node *p) {
+  int len = 0;
+  do {
+    len++;
+    p = p->next;
 
- }while(p!=Head);
- return len;
+  } while (p != Head);
+  return len;
 }
 
 void InsertCircular(struct Node *p, int index, int x) {
   struct Node *t;
   int i;
-  if (index < 0 || index > Length(p))
-    return;
+  if (index < 0 || index > Length(p)) return;
 
   if (index == 0) {
     t = (struct Node *)malloc(sizeof(struct Node));
@@ -330,16 +326,14 @@ void InsertCircular(struct Node *p, int index, int x) {
       Head = t;
       Head->next = Head;
     } else {
-      while (p->next != Head)
-        p = p->next;
+      while (p->next != Head) p = p->next;
       p->next = t;
       t->next = Head;
       Head = t;
     }
 
   } else {
-    for (i = 0; i < index - 1; i++)
-      p = p->next;
+    for (i = 0; i < index - 1; i++) p = p->next;
     t = (struct Node *)malloc(sizeof(struct Node));
     t->data = x;
     t->next = p->next;
@@ -347,40 +341,38 @@ void InsertCircular(struct Node *p, int index, int x) {
   }
 }
 
-int Delete (struct Node *p, int ix) {
+int Delete(struct Node *p, int ix) {
   struct Node *q;
   int i, x;
 
-  if(ix < 0) return -1;
+  if (ix < 0) return -1;
 
-  if(ix == 1) {
-    while(p->next != Head) {
+  if (ix == 1) {
+    while (p->next != Head) {
       p = p->next;
     }
-    x=Head->data;
-    if(Head == p) {
+    x = Head->data;
+    if (Head == p) {
       free(p);
-       Head = NULL;
+      Head = NULL;
     } else {
-      for(i = 0; i < ix-2; i++) {
+      for (i = 0; i < ix - 2; i++) {
         p = p->next;
       }
       q = p->next;
-        p->next = q->next;
+      p->next = q->next;
       x = q->data;
       free(q);
     }
-    
   }
-    return x;
+  return x;
 }
-
 
 int main() {
   struct Node *t1, *t2;
   int A[] = {2, 4, 6, 7, 9};
   create(A, 5);
-  struct Node* Head = _create(A, 5);
+  struct Node *Head = _create(A, 5);
 
   t1 = Head->next->next;
   t2 = Head->next->next->next->next;
